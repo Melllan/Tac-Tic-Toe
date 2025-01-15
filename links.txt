@@ -1,0 +1,14 @@
+p5.js reference:
+https://p5js.org/reference/
+
+web colors:
+https://en.wikipedia.org/wiki/Web_colors#Extended_colors
+
+Javascript Documentation: [specifically about Array.pop()]
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop
+
+How the Minimax algorithm works:
+https://www.youtube.com/watch?v=SLgZhpDsrfc
+
+AI that can play pokemon Red:
+https://www.youtube.com/watch?v=DcYLT37ImBY

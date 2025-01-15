@@ -1,0 +1,18 @@
+Things we need to do in the project:
+
+Create an AI opponent
+
+Allow the player to choose whether they play Human vs. Human or Human vs. AI
+
+Improve UI to make these choices possible
+
+Improve UI to show the status of the game in a better way than black text printouts on the screen.
+--> What information SHOULD be displayed on the screen?
+-
+---------------------------
+Group the "turn processing" code into Human Turns and AI turns
+Have Human Turns be triggered by mouse-clicks
+Have AI turns be triggered by a timer after their turn begins.
+
+HAVE AI TURNS TRIGGERED BY CLICKING A BUTTON
+The button says "Make AI Move" or something like that.
