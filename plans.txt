@@ -16,3 +16,5 @@ Have AI turns be triggered by a timer after their turn begins.
 
 HAVE AI TURNS TRIGGERED BY CLICKING A BUTTON
 The button says "Make AI Move" or something like that.
+----------------
+make things modular?

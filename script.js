@@ -11,9 +11,11 @@ var RUN_LIMIT = 4
 const GRID_TOP_MARGIN = (0.5*CANVAS_HEIGHT)-(0.5*GRID_ROW_COUNT*GRID_SCALE)
 const GRID_LEFT_MARGIN = (0.5*CANVAS_WIDTH)-(0.5*GRID_COL_COUNT*GRID_SCALE)
 
-const X = "red"
-const O = "blue"
+const X = "crimson"
+const O = "teal"
 const BLANK = "white"
+
+const TIE_COLOR = "mediumorchid"
 
 
 
@@ -478,7 +480,7 @@ function setup(){
 
   //test_button = new Button(50,50,50,50,"Test")
   //New Game Button
-  reset_button = new Button(500,50,100,50,"New Game")
+  reset_button = new Button(500,50,120,50,"New Game")
   reset_button.setFunction(resetGame)
   //AI Turn button
   AI_move_button = new Button(75,50,160,50,"Click for AI turn")
@@ -493,14 +495,16 @@ function setup(){
       GRID_DATA[r].push(BLANK)
     }
   }
+  game_board = new Board(3,4)
   
 }
 
 //Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block until the program is stopped or noLoop() is called.
 function draw(){
   background("gray")
-
+  rectMode(CORNER)
   //Draw Grid
+  game_board.draw()
   for(let r=0;r<GRID_ROW_COUNT;r+=1){
     for(let c=0;c<GRID_COL_COUNT;c+=1){
       fill( GRID_DATA[r][c] )
@@ -561,23 +565,33 @@ function draw(){
   let STATUS_COLOR = "magenta"
   if(X_TURN){
     GAME_STATUS = "X's Turn"
+    AI_move_button.NORMAL_COLOR = X
+    AI_move_button.HOVER_COLOR = "red"
+    STATUS_COLOR = X
   }
   if(!X_TURN){
     GAME_STATUS = "O's Turn"
+    AI_move_button.NORMAL_COLOR = O
+    AI_move_button.HOVER_COLOR = "darkturquoise"
+    STATUS_COLOR = O
   }
   if(X_WON){
     GAME_STATUS = "X has won! Congratulations!"
+    STATUS_COLOR = X
   }
   if(O_WON){
     GAME_STATUS = "O has won! Congratulations!"
+    STATUS_COLOR = O
   }
   if(TIE_GAME){
     GAME_STATUS = "Tie Game."
+    STATUS_COLOR = TIE_COLOR
   }
   rectMode(CENTER)
-  
-  rect(300,500,120,50)
+  fill(STATUS_COLOR)
+  rect(300,500,textWidth(GAME_STATUS)+20,50)
   textAlign(CENTER,CENTER)
+  fill("black")
   text(GAME_STATUS, 300,500)
   text("Current AI: "+AI_NAME, 300,550)
 
@@ -626,6 +640,7 @@ function mousePressed(){
   reset_button.handleClick()
   AI_move_button.handleClick()
   move_score_button.handleClick()
+  game_board.handleClick()
   //[*]When a square is clicked, its value should be changed to some horrifyingly bright color so we can't deny that a change happened.
   //mouseX, mouseY
   //[*]When you click on a square, its color should change to the color corresponding to the current player.
