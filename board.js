@@ -1,3 +1,5 @@
+//Requires p5.js to run
+//=============================================================
 class Board {
   constructor(row_count, col_count) {
     this.x = 20
@@ -9,10 +11,13 @@ class Board {
     this.X_color = "crimson"
     this.O_color = "darkturquoise"
     this.board_data = []
+    this.current_player = this.X_color
+    this.opponent = this.O_color
+    //Fill Empty Board
     for (let r = 0; r < this.row_count; r++){
       let new_row = []
       for(let c=0; c<this.col_count; c++){
-        new_row.push(this.O_color)
+        new_row.push(this.Blank_color)
       }
       this.board_data.push(new_row)
     }
@@ -21,6 +26,13 @@ class Board {
   //Setters
 
   //Getters
+  
+  //Game State Methods
+  nextTurn(){
+    let temp_current = this.current_player
+    this.current_player = this.opponent
+    this.opponent = temp_current
+  }
 
   //Click Handlers
   // Returns whether the Mouse is within the bounds of the Board
@@ -41,16 +53,17 @@ class Board {
   handleClick() {
     if (this.hasMouse()){
       let [row, col] = [this.mouseRow(), this.mouseCol()]
-      this.board_data[row][col] = this.X_color
+      if (this.board_data[row][col] == this.Blank_color){
+        this.board_data[row][col] = this.current_player
+        this.nextTurn()
+      }
     }
   }
   //Drawing
   draw() {
     push()
     fill(this.Blank_color)
-    if (this.hasMouse()) {
-      stroke("purple")
-    }
+    
     for (let r = 0; r < this.row_count; r++) {
       for (let c = 0; c < this.col_count; c++) {
         fill(this.board_data[r][c])
@@ -60,7 +73,9 @@ class Board {
       }
     }
     if (this.hasMouse()) {
-      fill("black")
+      noFill()
+      stroke("black")
+      strokeWeight(2)
       let x = this.x + this.mouseCol() * this.square_size
       let y = this.y + this.mouseRow() * this.square_size
       rect(x, y, this.square_size, this.square_size)

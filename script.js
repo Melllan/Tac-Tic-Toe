@@ -65,10 +65,14 @@ function playerHasWon(player){
 function boardHasWin(current_board, player){
   let counter = 0
   let victory = false
+  //Assumes Rectangular Boards Only!
+  let row_count = current_board.length
+  let col_count = current_board[0].length
+  
   //Horizontal Victory...
-  for(let r=0;r<GRID_ROW_COUNT;r+=1){ //for each row...
+  for(let r=0;r<row_count;r+=1){ //for each row...
     counter = 0
-    for(let c=0; c<GRID_COL_COUNT; c+=1){ //for each column within the row...
+    for(let c=0; c<col_count; c+=1){ //for each column within the row...
       if(current_board[r][c] == player){
         counter ++
       }
@@ -81,9 +85,9 @@ function boardHasWin(current_board, player){
     }
   }
   //Vertical Victory...
-  for(let c=0;c<GRID_COL_COUNT; c+=1){
+  for(let c=0;c<col_count; c+=1){
     counter = 0
-    for(let r=0;r<GRID_ROW_COUNT;r+=1){
+    for(let r=0;r<row_count;r+=1){
       if(current_board[r][c] == player){
         counter ++
       }
@@ -97,11 +101,11 @@ function boardHasWin(current_board, player){
   }
   //Major Diagonal Victory...
   //create a for loop that counts from the smallest MD to the largest MD
-  for(let D=-GRID_COL_COUNT+1; D<=GRID_ROW_COUNT-1; D+=1){
+  for(let D=-col_count+1; D<=row_count-1; D+=1){
     counter = 0
-    for(let r=0;r<GRID_ROW_COUNT; r+=1){
+    for(let r=0;r<row_count; r+=1){
       let c = r-D
-      if(0 <= c && c< GRID_COL_COUNT && current_board[r][c] == player){// Checks whether the square is out of bounds before attempting to read data that could be invalid.
+      if(0 <= c && c< col_count && current_board[r][c] == player){// Checks whether the square is out of bounds before attempting to read data that could be invalid.
         counter ++
       }
       else{
@@ -114,11 +118,11 @@ function boardHasWin(current_board, player){
   }
   //Minor Diagonal Victory...
   //create a for loop that counts from the smallest mD to the largest mD
-  for(let d=0; d<=GRID_ROW_COUNT+GRID_COL_COUNT-2; d+=1){
+  for(let d=0; d<=row_count+col_count-2; d+=1){
     counter = 0
-    for(let r=0;r<GRID_ROW_COUNT; r+=1){
+    for(let r=0;r<row_count; r+=1){
       let c = d-r
-      if(0 <= c && c< GRID_COL_COUNT && current_board[r][c] == player){// Checks whether the square is out of bounds before attempting to read data that could be invalid.
+      if(0 <= c && c< col_count && current_board[r][c] == player){// Checks whether the square is out of bounds before attempting to read data that could be invalid.
         counter ++
       }
       else{
@@ -195,9 +199,9 @@ function makeMove(current_board, move, player){
   current_board[r][c] = player
 }
 
-//======================================================================
+//=====================================================================
 // AI Code
-//----------------------------------------------------------------------
+//---------------------------------------------------------------------
 //AI function!  This function should return a legal row and column on the board to play on, given the current state of the board.
 function AI_Move(current_board, current_player, opponent){
   if(AI_NAME == "random"){
@@ -595,33 +599,9 @@ function draw(){
   text(GAME_STATUS, 300,500)
   text("Current AI: "+AI_NAME, 300,550)
 
-  // Process Turns
-  // if(!(X_WON || O_WON || TIE_GAME)){
-  //   if(X_TURN){
-  //     if(X_IS_HUMAN){
-  //       // Insert code to allow the user to make a move
-  //     }
-  //     else{
-  //       // Wait for 1 second
-  //       await new Promise(resolve => setTimeout(resolve, 1000));
-  //       let [r,c] = AI_Move(GRID_DATA,X)
-  //       GRID_DATA[r][c] = X
-  //       nextTurn()
-  //     }
-  //   }
-  //   else{
-  //     if(O_IS_HUMAN){
-  //       // Insert code to allow the user to make a move
-  //     }
-  //     else{
-  //       // Wait for 1 second
-  //       await new Promise(resolve => setTimeout(resolve, 1000));
-  //       let [r,c] = AI_Move(GRID_DATA,O)
-  //       GRID_DATA[r][c] = O
-  //       nextTurn()
-  //     }
-  //   }
-  // }
+  //Add new game status display for board class 
+
+  
 
   //Draw Buttons
   //test_button.draw()
