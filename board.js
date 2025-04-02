@@ -7,9 +7,16 @@ class Board {
     this.row_count = row_count
     this.col_count = col_count
     this.square_size = 20
+    this.Blank_ID = 0
+    this.X_ID = 1
+    this.O_ID = 2
     this.Blank_color = "white"
     this.X_color = "crimson"
     this.O_color = "darkturquoise"
+    this.colors = {}
+    this.colors[this.Blank_ID] = this.Blank_color
+    this.colors[this.X_ID] = this.X_color
+    this.colors[this.O_ID] = this.O_color
     this.board_data = []
     this.current_player = this.X_color
     this.opponent = this.O_color

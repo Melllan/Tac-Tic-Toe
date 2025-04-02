@@ -600,7 +600,10 @@ function draw(){
   text("Current AI: "+AI_NAME, 300,550)
 
   //Add new game status display for board class 
-
+  fill(game_board.current_player.color)
+  GAME_STATUS = game_board.current_player.name+"'s Turn"
+  rect(50,250,50,50)
+  
   
 
   //Draw Buttons
