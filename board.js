@@ -17,14 +17,25 @@ class Board {
     this.colors[this.Blank_ID] = this.Blank_color
     this.colors[this.X_ID] = this.X_color
     this.colors[this.O_ID] = this.O_color
+    
+    this.Blank_player = {name:"Blank", color:this.Blank_color, id:this.Blank_ID}
+    this.X_player = {name:"X", color:this.X_color, id:this.X_ID}
+    this.O_player = {name:"O", color:this.O_color, id:this.O_ID}
+    // this.X_player["name"] = "X"
+    this.players = {}
+    this.players[this.Blank_ID] = this.Blank_player
+    this.players[this.X_ID] = this.X_player
+    this.players[this.O_ID] = this.O_player
+    
+    this.current_player = this.X_player
+    this.opponent = this.O_player
+    
     this.board_data = []
-    this.current_player = this.X_color
-    this.opponent = this.O_color
     //Fill Empty Board
     for (let r = 0; r < this.row_count; r++){
       let new_row = []
       for(let c=0; c<this.col_count; c++){
-        new_row.push(this.Blank_color)
+        new_row.push(this.Blank_ID)
       }
       this.board_data.push(new_row)
     }
@@ -33,6 +44,8 @@ class Board {
   //Setters
 
   //Getters
+
+  
   
   //Game State Methods
   nextTurn(){
@@ -60,32 +73,33 @@ class Board {
   handleClick() {
     if (this.hasMouse()){
       let [row, col] = [this.mouseRow(), this.mouseCol()]
-      if (this.board_data[row][col] == this.Blank_color){
-        this.board_data[row][col] = this.current_player
+      if (this.board_data[row][col] == this.Blank_ID){
+        this.board_data[row][col] = this.current_player.id
         this.nextTurn()
       }
     }
   }
   //Drawing
   draw() {
-    push()
-    fill(this.Blank_color)
-    
+    push()    
     for (let r = 0; r < this.row_count; r++) {
       for (let c = 0; c < this.col_count; c++) {
-        fill(this.board_data[r][c])
+        let player_id = this.board_data[r][c]
+        fill(this.players[player_id].color)
         let x = this.x + c * this.square_size
         let y = this.y + r * this.square_size
         rect(x, y, this.square_size, this.square_size)
       }
     }
     if (this.hasMouse()) {
+      push()
       noFill()
       stroke("black")
       strokeWeight(2)
       let x = this.x + this.mouseCol() * this.square_size
       let y = this.y + this.mouseRow() * this.square_size
       rect(x, y, this.square_size, this.square_size)
+      pop()
     }
     pop()
   }
