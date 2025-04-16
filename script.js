@@ -601,6 +601,9 @@ function draw(){
 
   //Add new game status display for board class 
   fill(game_board.current_player.color)
+  // fill(game_board.colors[game_board.current_player])
+  // fill(game_board.getColor(game_board.current_player))
+  // fill(game_board.getCurrentPlayerColor())
   GAME_STATUS = game_board.current_player.name+"'s Turn"
   rect(50,250,50,50)
   
