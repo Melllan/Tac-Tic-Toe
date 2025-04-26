@@ -1,11 +1,12 @@
 //Requires p5.js to run
 //=============================================================
 class Board {
-  constructor(row_count, col_count) {
+  constructor(row_count, col_count, run_limit) {
     this.x = 20
     this.y = 300
     this.row_count = row_count
     this.col_count = col_count
+    this.run_limit = run_limit
     this.square_size = 20
     this.Blank_ID = 0
     this.X_ID = 1
@@ -47,14 +48,68 @@ class Board {
 
   
   
-  //Game State Methods
+  ///////////////////Game State Methods///////////////////////
   nextTurn(){
     let temp_current = this.current_player
     this.current_player = this.opponent
     this.opponent = temp_current
   }
 
-  //Click Handlers
+  boardIsFull(){
+    for(let row of this.board_data){
+      for(let square of row){
+        if(square == this.Blank_ID){
+          return false
+        }
+      }
+    }
+    return true
+  }
+  
+  //Returns whether the given player has won
+  playerHasWon(player_id){
+    let counter = 0
+    //Check for Horizontal Victory
+    for(let r=0; r<this.row_count; r++){
+      counter = 0
+      for(let c=0; c<this.col_count; c++){
+        if(this.board_data[r][c] == player_id){
+          counter ++
+          if(counter == this.run_limit){
+            return true
+          }
+        }
+        else{
+          counter = 0
+        }
+      }
+    }
+
+    //Check for Vertical Victory
+    for(let c=0; c<this.col_count; c++){
+      counter = 0
+      for(let r=0; r<this.row_count; r++){
+        if(this.board_data[r][c] == player_id){
+          counter ++
+          if(counter == this.run_limit){
+            return true
+          }
+        }
+        else{
+          counter = 0
+        }
+      }
+    }
+
+    //Check for Major Diagonal Victory
+
+    //Check for Minor Diagonal Victory
+    
+    
+  }
+
+  ///////////////////Click Handlers/////////////////////////////
+  
   // Returns whether the Mouse is within the bounds of the Board
   hasMouse() {
     let betweenLR = this.x < mouseX && mouseX < this.x + (this.col_count * this.square_size)
