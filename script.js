@@ -499,7 +499,7 @@ function setup(){
       GRID_DATA[r].push(BLANK)
     }
   }
-  game_board = new Board(3,4)
+  game_board = new Board(3,4,3)
   
 }
 
@@ -600,12 +600,14 @@ function draw(){
   text("Current AI: "+AI_NAME, 300,550)
 
   //Add new game status display for board class 
-  fill(game_board.current_player.color)
-  // fill(game_board.colors[game_board.current_player])
-  // fill(game_board.getColor(game_board.current_player))
-  // fill(game_board.getCurrentPlayerColor())
+  rectMode(CENTER)
+  textAlign(CENTER,CENTER)
   GAME_STATUS = game_board.current_player.name+"'s Turn"
-  rect(50,250,50,50)
+  fill(game_board.current_player.color)
+  rect(70,250,textWidth(GAME_STATUS)+20,50)
+  fill("black")
+  text(GAME_STATUS, 70,250)
+  
   
   
 
