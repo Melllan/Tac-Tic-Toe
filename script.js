@@ -29,7 +29,7 @@ var O_IS_HUMAN = false
 
 var AI_NAME = "deep4"
 
-var AI_scores_visible = false
+var AI_scores_visible = true
 var move_evaluation_list = []
 
 //=====================================================================
@@ -101,7 +101,7 @@ function boardHasWin(current_board, player){
   }
   //Major Diagonal Victory...
   //create a for loop that counts from the smallest MD to the largest MD
-  for(let D=-col_count+1; D<=row_count-1; D+=1){
+  for(let D=-(col_count-RUN_LIMIT); D<=(row_count-RUN_LIMIT); D+=1){
     counter = 0
     for(let r=0;r<row_count; r+=1){
       let c = r-D
@@ -118,7 +118,7 @@ function boardHasWin(current_board, player){
   }
   //Minor Diagonal Victory...
   //create a for loop that counts from the smallest mD to the largest mD
-  for(let d=0; d<=row_count+col_count-2; d+=1){
+  for(let d=RUN_LIMIT-1; d<=(row_count-1)+(col_count-1)-(RUN_LIMIT-1); d+=1){
     counter = 0
     for(let r=0;r<row_count; r+=1){
       let c = d-r
