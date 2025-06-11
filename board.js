@@ -102,10 +102,40 @@ class Board {
     }
 
     //Check for Major Diagonal Victory
+    for(let D=-(this.col_count-this.run_limit); D<=(this.row_count-this.run_limit); D++){
+      counter = 0
+      for(let r=0; r<this.row_count; r++){
+        let c = r-D
+        if(0 <= c && c< this.col_count && this.board_data[r][c] == player_id){
+          counter ++
+          if(counter == this.run_limit){
+            return true
+          }
+        }
+        else{
+          counter = 0
+        }
+      }
+    }
 
     //Check for Minor Diagonal Victory
-    
-    
+    for(let d=this.run_limit-1; d<=(this.row_count-1)+(this.col_count-1)-(this.run_limit-1); d++){
+      counter = 0
+      for(let r=0; r<this.row_count; r++){
+        let c = d-r
+        if(0 <= c && c< this.col_count && this.board_data[r][c] == player_id){
+          counter ++
+          if(counter == this.run_limit){
+            return true
+          }
+        }
+        else{
+          counter = 0
+        }
+      }
+    }
+    //If no victory was found, return false
+    return false
   }
 
   ///////////////////Click Handlers/////////////////////////////
@@ -134,7 +164,7 @@ class Board {
       }
     }
   }
-  //Drawing
+  ///////////////////////////Drawing///////////////////////////////////
   draw() {
     push()    
     for (let r = 0; r < this.row_count; r++) {
