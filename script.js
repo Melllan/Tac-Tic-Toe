@@ -499,7 +499,7 @@ function setup(){
       GRID_DATA[r].push(BLANK)
     }
   }
-  game_board = new Board(3,4,3)
+  game_board = new Board(5,5,3)
   
 }
 
@@ -607,9 +607,16 @@ function draw(){
   rect(70,250,textWidth(GAME_STATUS)+20,50)
   fill("black")
   text(GAME_STATUS, 70,250)
-  
-  
-  
+
+  //Test code to see if win detection works at all
+  if (game_board.playerHasWon(game_board.X_ID)){
+    fill(game_board.X_color)
+    rect(70,200,20,50)
+  }
+  if (game_board.playerHasWon(game_board.O_ID)){
+    fill(game_board.O_color)
+    rect(100,200,20,50)
+  }
 
   //Draw Buttons
   //test_button.draw()
