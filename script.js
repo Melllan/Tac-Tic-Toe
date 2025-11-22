@@ -29,7 +29,7 @@ var O_IS_HUMAN = false
 
 var AI_NAME = "deep4"
 
-var AI_scores_visible = true
+var AI_scores_visible = false
 var move_evaluation_list = []
 
 //=====================================================================
@@ -502,7 +502,7 @@ function setup(){
   game_board = new Board(5,5,3)
   
 }
-
+//---------------------------------------------------------------------
 //Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block until the program is stopped or noLoop() is called.
 function draw(){
   background("gray")
@@ -609,16 +609,18 @@ function draw(){
   text(GAME_STATUS, 70,250)
 
   //Test code to see if win detection works at all
-  if (game_board.playerHasWon(game_board.X_ID)){
-    fill(game_board.X_color)
+  
+  //rect(70,200,20,50)
+  if (game_board.playerHasWon(game_board.X_player)){
+    fill(game_board.X_player.color)
     rect(70,200,20,50)
   }
-  if (game_board.playerHasWon(game_board.O_ID)){
-    fill(game_board.O_color)
+  if (game_board.playerHasWon(game_board.O_player)){
+    fill(game_board.O_player.color)
     rect(100,200,20,50)
   }
 
-  //Draw Buttons
+  //====Draw Buttons====
   //test_button.draw()
   reset_button.draw()
   AI_move_button.draw()
@@ -629,7 +631,7 @@ function draw(){
   // line(0,0,600,600)
   // ellipse(100,200,300,400)
 }
-
+//---------------------------------------------------------------------
 function mousePressed(){
   //test_button.handleClick()
   reset_button.handleClick()
