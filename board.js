@@ -18,7 +18,7 @@ class Board {
     this.colors[this.Blank_ID] = this.Blank_color
     this.colors[this.X_ID] = this.X_color
     this.colors[this.O_ID] = this.O_color
-    
+    //This is almost a player class, but it's not quite.
     this.Blank_player = {name:"Blank", color:this.Blank_color, id:this.Blank_ID}
     this.X_player = {name:"X", color:this.X_color, id:this.X_ID}
     this.O_player = {name:"O", color:this.O_color, id:this.O_ID}
@@ -40,12 +40,12 @@ class Board {
       }
       this.board_data.push(new_row)
     }
-
+  
   }
   //Setters
-
+  
   //Getters
-
+  
   
   
   ///////////////////Game State Methods///////////////////////
@@ -54,7 +54,12 @@ class Board {
     this.current_player = this.opponent
     this.opponent = temp_current
   }
-
+  //Makes the move on the board
+  makeMove(move, player){
+    let [row, col] = move
+    this.board_data[row][col] = player.id
+  }
+  //Returns whether the board is full
   boardIsFull(){
     for(let row of this.board_data){
       for(let square of row){
@@ -65,15 +70,17 @@ class Board {
     }
     return true
   }
-  
+  //-------------------------------------------------------------------
   //Returns whether the given player has won
-  playerHasWon(player_id){
+  playerHasWon(player){
     let counter = 0
+    //let player_id = player.id //Does this run faster?
+    
     //Check for Horizontal Victory
     for(let r=0; r<this.row_count; r++){
       counter = 0
       for(let c=0; c<this.col_count; c++){
-        if(this.board_data[r][c] == player_id){
+        if(this.board_data[r][c] == player.id){
           counter ++
           if(counter == this.run_limit){
             return true
@@ -89,7 +96,7 @@ class Board {
     for(let c=0; c<this.col_count; c++){
       counter = 0
       for(let r=0; r<this.row_count; r++){
-        if(this.board_data[r][c] == player_id){
+        if(this.board_data[r][c] == player.id){
           counter ++
           if(counter == this.run_limit){
             return true
@@ -106,7 +113,7 @@ class Board {
       counter = 0
       for(let r=0; r<this.row_count; r++){
         let c = r-D
-        if(0 <= c && c< this.col_count && this.board_data[r][c] == player_id){
+        if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
           counter ++
           if(counter == this.run_limit){
             return true
@@ -123,7 +130,7 @@ class Board {
       counter = 0
       for(let r=0; r<this.row_count; r++){
         let c = d-r
-        if(0 <= c && c< this.col_count && this.board_data[r][c] == player_id){
+        if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
           counter ++
           if(counter == this.run_limit){
             return true
