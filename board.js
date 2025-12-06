@@ -40,7 +40,8 @@ class Board {
       }
       this.board_data.push(new_row)
     }
-  
+    //AI module:
+    this.AI = new gameAI("random", 1)
   }
   //Setters
   
