@@ -473,15 +473,33 @@ function evaluateMoves(){
   move_evaluation_list = move_scores
 }
 
+function gameBoardDoAITurn(){
+  game_board.doAITurn()
+}
+
 //=====================================================================
 // p5.js Functions
 //---------------------------------------------------------------------
 
 //The setup() function is called once when the program starts. 
 function setup(){
+  //Bring data structures into being//
+  //Game Board
+  game_board = new Board(5,5,3)
+
+  //Create and fill out the 2D array
+  for(let r=0;r<GRID_ROW_COUNT;r+=1){
+    GRID_DATA.push([])
+    for(let c=0;c<GRID_COL_COUNT;c+=1){
+      GRID_DATA[r].push(BLANK)
+    }
+  }
+  
+  //Set up the canvas//
   createCanvas(CANVAS_WIDTH,CANVAS_HEIGHT)
   background("gray")
 
+  //Create Buttons//
   //test_button = new Button(50,50,50,50,"Test")
   //New Game Button
   reset_button = new Button(500,50,120,50,"New Game")
@@ -492,20 +510,22 @@ function setup(){
 
   move_score_button = new Button(75,100,160,50,"Move Scores")
   move_score_button.setFunction(evaluateMoves)
-  //Create and fill out the 2D array
-  for(let r=0;r<GRID_ROW_COUNT;r+=1){
-    GRID_DATA.push([])
-    for(let c=0;c<GRID_COL_COUNT;c+=1){
-      GRID_DATA[r].push(BLANK)
-    }
-  }
-  game_board = new Board(5,5,3)
+
+  AI_move_button_for_board = new Button(100,500,160,50,"Click for Board AI turn")
+  AI_move_button_for_board.setFunction(gameBoardDoAITurn)  
   
 }
 //---------------------------------------------------------------------
 //Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block until the program is stopped or noLoop() is called.
 function draw(){
   background("gray")
+  push()
+  stroke(120)
+  for(let i=0;i<7;i+=1){
+    line(0,i*100,600,i*100)
+    line(i*100,0,i*100,600)
+  }
+  pop()
   rectMode(CORNER)
   //Draw Grid
   game_board.draw()
@@ -625,6 +645,7 @@ function draw(){
   reset_button.draw()
   AI_move_button.draw()
   move_score_button.draw()
+  AI_move_button_for_board.draw()
 
   //text(AI_NAME, 275,50) //Display chosen AI name
 
@@ -638,6 +659,7 @@ function mousePressed(){
   AI_move_button.handleClick()
   move_score_button.handleClick()
   game_board.handleClick()
+  AI_move_button_for_board.handleClick()
   //[*]When a square is clicked, its value should be changed to some horrifyingly bright color so we can't deny that a change happened.
   //mouseX, mouseY
   //[*]When you click on a square, its color should change to the color corresponding to the current player.
