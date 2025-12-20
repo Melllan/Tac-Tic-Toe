@@ -49,17 +49,28 @@ class Board {
   
   
   
-  ///////////////////Game State Methods///////////////////////
+  ///////////////////Game State Methods////////////////////////
+  //-----------------------------------------------------------
   nextTurn(){
     let temp_current = this.current_player
     this.current_player = this.opponent
     this.opponent = temp_current
   }
+  //-----------------------------------------------------------
   //Makes the move on the board
   makeMove(move, player){
     let [row, col] = move
     this.board_data[row][col] = player.id
   }
+  //-----------------------------------------------------------
+  //Executes an AI move
+  doAITurn(){
+    console.log("AI Turn", this)
+    let move = this.AI.getAIMove(this.board_data, this.current_player, this.opponent)
+    this.makeMove(move, this.current_player)
+    this.nextTurn()
+  }
+    //---------------------------------------------------------
   //Returns whether the board is full
   boardIsFull(){
     for(let row of this.board_data){
@@ -71,7 +82,7 @@ class Board {
     }
     return true
   }
-  //-------------------------------------------------------------------
+  //-----------------------------------------------------------
   //Returns whether the given player has won
   playerHasWon(player){
     let counter = 0
@@ -145,6 +156,7 @@ class Board {
     //If no victory was found, return false
     return false
   }
+  //-----------------------------------------------------------
 
   ///////////////////Click Handlers/////////////////////////////
   
