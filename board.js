@@ -65,8 +65,9 @@ class Board {
   //-----------------------------------------------------------
   //Executes an AI move
   doAITurn(){
-    console.log("AI Turn", this)
+    console.log("AI Turn", this.current_player,this.AI)
     let move = this.AI.getAIMove(this.board_data, this.current_player, this.opponent)
+    console.log("AI Move:", move)
     this.makeMove(move, this.current_player)
     this.nextTurn()
   }
