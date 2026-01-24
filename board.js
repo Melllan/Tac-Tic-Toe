@@ -56,6 +56,25 @@ class Board {
     this.current_player = this.opponent
     this.opponent = temp_current
   }
+
+  //-----------------------------------------------------------
+  //Returns whether a move is legal
+  moveIsLegal(move){
+    let [row,col] = move
+    return 0<=row && row<this.row_count && 0<=col && col<this.col_count && this.board_data[row][col] == this.Blank_ID
+  }
+  //-----------------------------------------------------------
+  //(Does this belong in the AI class?)
+  getLegalMoves(board_data){
+    let legal_moves = []
+    for(let r=0; r<board_data.length; r++){
+      for(let c=0; c<board_data[r].length; c++){
+        if(board_data[r][c] == this.Blank_ID){
+          legal_moves.push([r,c])
+        }
+      }
+    }
+  }
   //-----------------------------------------------------------
   //Makes the move on the board
   makeMove(move, player){
