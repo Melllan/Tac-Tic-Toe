@@ -41,7 +41,8 @@ class Board {
       this.board_data.push(new_row)
     }
     //AI module:
-    this.AI = new gameAI("random", 1)
+    this.AI = new gameAI(this,"random", 1)
+    console.log("AI:",this.AI)
   }
   //Setters
   
@@ -74,6 +75,7 @@ class Board {
         }
       }
     }
+    return legal_moves
   }
   //-----------------------------------------------------------
   //Makes the move on the board
@@ -84,8 +86,10 @@ class Board {
   //-----------------------------------------------------------
   //Executes an AI move
   doAITurn(){
+    console.log("Doing AI Turn...")
+    console.log(this.AI)
     console.log("AI Turn", this.current_player,this.AI)
-    let move = this.AI.getAIMove(this.board_data, this.current_player, this.opponent)
+    let move = this.AI.getAIMove()
     console.log("AI Move:", move)
     this.makeMove(move, this.current_player)
     this.nextTurn()
