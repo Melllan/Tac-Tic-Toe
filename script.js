@@ -474,6 +474,7 @@ function evaluateMoves(){
 }
 
 function gameBoardDoAITurn(){
+  console.log("AI turn button has been clicked.")
   game_board.doAITurn()
 }
 
