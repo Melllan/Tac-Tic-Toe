@@ -11,7 +11,7 @@ class Button {
     this.w = w
     this.h = h
     this.label = label
-    this.NORMAL_COLOR = `#eca`
+    this.NORMAL_COLOR = `#1f1` //#eca
     this.HOVER_COLOR = `#fff`
     this.CLICK_COLOR = `#c81`
     this.on_click = null
