@@ -30,10 +30,10 @@ class gameAI{
   AI_RANDOM(current_board, current_player, opponent, depth){
     console.log("AI_RANDOM")
     console.log("Ai's Board:",this.board)
-    //console.log("Legal Moves:",this.board.getLegalMoves(current_board))
-    //let legal_moves = this.board.getLegalMoves(current_board)
+    console.log("Legal Moves:",this.board.getLegalMoves(current_board))
+    let legal_moves = this.board.getLegalMoves(current_board)
     
-    return [2,1]//getRandomItem(legal_moves)
+    return getRandomItem(legal_moves)
   }
   //======================================================================
   
