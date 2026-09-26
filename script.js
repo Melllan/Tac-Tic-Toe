@@ -29,7 +29,7 @@ var O_IS_HUMAN = false
 
 var AI_NAME = "deep4"
 
-var AI_scores_visible = false
+var AI_scores_visible = true
 var move_evaluation_list = []
 
 //=====================================================================
@@ -180,7 +180,7 @@ function getRandomItem(list){
 //Returns a copy of the given board
 function copyBoard(current_board){
   //One line solution!!!
-  return current_board.map(row => row.slice())
+  return current_board.map(row => row.slice()) //Array of copies of the sub-arrays
   // return current_board.map(
   //   function (row){
   //     return row.slice()

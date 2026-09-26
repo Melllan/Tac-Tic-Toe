@@ -2,13 +2,16 @@
 //=============================================================
 class Board {
   constructor(row_count, col_count, run_limit) {
+    //Graphics config
     this.x = 20
     this.y = 300
+    this.square_size = 20
+    //Game Rules
     this.row_count = row_count
     this.col_count = col_count
     this.run_limit = run_limit
-    this.square_size = 20
-    this.Blank_ID = 0
+    //Player Data
+    this.Blank_ID = gameRules.Blank_ID
     this.X_ID = 1
     this.O_ID = 2
     this.Blank_color = "white"
