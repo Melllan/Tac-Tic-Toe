@@ -1,11 +1,11 @@
 //This file will contain all of the functions needed to access and process board data.
 //Can be used both by AIs and by the Board Class when finalizing its actions.
 //The Board Class will contain a reference to a gameRules object, which will be this Static Class of functions
-
+//WITHIN STATIC FUNCTIONS ALL VARIABLES MUST BE DEFINED USING LET (or esle)
 //RUN_LENGTH = 4 //This should actually be set by a constructor
 class gameRules{
 
-    Blank_ID = 0
+    static Blank_ID = 0
     constructor(){
         
 
@@ -22,15 +22,15 @@ class gameRules{
 
     //Called from gameAI.js:
     //gameRules.getLegalMoves(this.board.board_data, this.board.Blank_player.id)
-    getLegalMoves(board_array){
-        return this.getOwnedSquares(board_array,Blank_ID)
+    static getLegalMoves(board_array){
+        return this.getOwnedSquares(board_array,this.Blank_ID)
         
     }
     //Returns a list of all the [r,c] coordinates in the board_array that contain player_id
-    getOwnedSquares(board_array, player_id){
-        owned_squares = []
-        for(r=0; r<board_array.length;r++){ //For each row...
-            for(c=0;c<board_array[0].length; c++) {//For each item in the row (designated by column)
+    static getOwnedSquares(board_array, player_id){
+        var owned_squares = [] //Use var for defining variables within a function and use let for mostly for loops and if statements.
+        for(let r=0; r<board_array.length;r++){ //For each row...
+            for(let c=0;c<board_array[0].length; c++) {//For each item in the row (designated by column)
                 if(board_array[r][c] == player_id){
                     owned_squares.push([r,c])
                 }
@@ -41,5 +41,11 @@ class gameRules{
 
     noLegalMoves(board_array){
         return this.getLegalMoves(board_array).length() == 0
+    }
+    //Define how a move is actually made
+    //Test this later
+    makeMove(board_array, move, player_id){
+        var [r,c] = move
+        board_array[r][c] = player_id
     }
 }

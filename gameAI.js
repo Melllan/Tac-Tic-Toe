@@ -47,7 +47,7 @@ class gameAI{
     console.log("view of 'this' from within AI_RANDOM",this)
     console.log("Ai's Board:",this.board)
     console.log("Legal Moves:",this.board.getLegalMoves(current_board))
-    let legal_moves = this.gameRules.getLegalMoves(current_board)
+    let legal_moves = gameRules.getLegalMoves(current_board)
     
     return getRandomItem(legal_moves)
   }
