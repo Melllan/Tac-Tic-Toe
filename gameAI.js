@@ -21,7 +21,10 @@ class gameAI{
     console.log("AI's Name:",this.name)
     switch(this.name) {
       case "random":
-        return this.AI_RANDOM(this.board.board_data, this.board.current_player, this.board.opponent, this.depth)
+        return this.AI_RANDOM(this.board.board_data, this.board.current_player.id, this.board.opponent, this.depth)
+      case "grabby":
+        console.log("Running Grabby For Sure")
+        return this.AI_GRABBY(this.board.board_data, this.board.current_player.id, this.board.opponent)
     }
     //return this.AI_List[this.name](this.board.board_data, this.board.current_player, this.board.opponent, this.depth)
   }
@@ -42,26 +45,30 @@ class gameAI{
   //---------------------------------------------------------------------
   //======================================================================
   //Random AI, just picks a random move from the list of legal moves.
-  AI_RANDOM(current_board, current_player, opponent, depth){
+  AI_RANDOM(current_board, current_player_id, opponent, depth){
     console.log("beginning function: AI_RANDOM")
     console.log("view of 'this' from within AI_RANDOM",this)
     console.log("Ai's Board:",this.board)
-    console.log("Legal Moves:",this.board.getLegalMoves(current_board))
+    console.log("Legal Moves:", gameRules.getLegalMoves(current_board))
     let legal_moves = gameRules.getLegalMoves(current_board)
     
     return getRandomItem(legal_moves)
   }
 
-  AI_GRABBY(current_board, current_player, opponent){
-    // console.log("AI_GRABBY", current_player)
-    let legal_moves = this.board.getLegalMoves(current_board)
+  AI_GRABBY(current_board, current_player_id, opponent){
+
+    console.log("AI_GRABBY", current_player_id)
+    let legal_moves = gameRules.getLegalMoves(current_board)
     //If there is a move that will make the player win, return that.
     for(let move of legal_moves){
       //create a copy of the board, and play the move on the copy
-      // console.log("move:",move)
-      let copy_of_board = copy2DArray(current_board)
-      makeMove(copy_of_board, move, current_player)
-      if(boardHasWin(copy_of_board, current_player)){
+      console.log("move:",move)
+      let copy_of_board = this.copy2DArray(current_board)
+      gameRules.makeMove(copy_of_board, move, current_player_id)
+      console.log(copy_of_board)
+      console.log(gameRules.boardHasWin(copy_of_board, current_player_id, this.board.run_limit))
+      if(gameRules.boardHasWin(copy_of_board, current_player_id, this.board.run_limit)){
+        
         return move
       } 
     }

@@ -44,7 +44,7 @@ class Board {
       this.board_data.push(new_row)
     }
     //AI module:
-    this.AI = new gameAI(this,"random", 1)
+    this.AI = new gameAI(this,"grabby", 1)
     console.log("AI:",this.AI)
   }
   //Setters
@@ -112,76 +112,77 @@ class Board {
   //-----------------------------------------------------------
   //Returns whether the given player has won
   playerHasWon(player){
-    let counter = 0
-    //let player_id = player.id //Does this run faster?
+    return gameRules.boardHasWin(this.board_data, player.id, this.run_limit)
+    // let counter = 0
+    // //let player_id = player.id //Does this run faster?
     
-    //Check for Horizontal Victory
-    for(let r=0; r<this.row_count; r++){
-      counter = 0
-      for(let c=0; c<this.col_count; c++){
-        if(this.board_data[r][c] == player.id){
-          counter ++
-          if(counter == this.run_limit){
-            return true
-          }
-        }
-        else{
-          counter = 0
-        }
-      }
-    }
+    // //Check for Horizontal Victory
+    // for(let r=0; r<this.row_count; r++){
+    //   counter = 0
+    //   for(let c=0; c<this.col_count; c++){
+    //     if(this.board_data[r][c] == player.id){
+    //       counter ++
+    //       if(counter == this.run_limit){
+    //         return true
+    //       }
+    //     }
+    //     else{
+    //       counter = 0
+    //     }
+    //   }
+    // }
 
-    //Check for Vertical Victory
-    for(let c=0; c<this.col_count; c++){
-      counter = 0
-      for(let r=0; r<this.row_count; r++){
-        if(this.board_data[r][c] == player.id){
-          counter ++
-          if(counter == this.run_limit){
-            return true
-          }
-        }
-        else{
-          counter = 0
-        }
-      }
-    }
+    // //Check for Vertical Victory
+    // for(let c=0; c<this.col_count; c++){
+    //   counter = 0
+    //   for(let r=0; r<this.row_count; r++){
+    //     if(this.board_data[r][c] == player.id){
+    //       counter ++
+    //       if(counter == this.run_limit){
+    //         return true
+    //       }
+    //     }
+    //     else{
+    //       counter = 0
+    //     }
+    //   }
+    // }
 
-    //Check for Major Diagonal Victory
-    for(let D=-(this.col_count-this.run_limit); D<=(this.row_count-this.run_limit); D++){
-      counter = 0
-      for(let r=0; r<this.row_count; r++){
-        let c = r-D
-        if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
-          counter ++
-          if(counter == this.run_limit){
-            return true
-          }
-        }
-        else{
-          counter = 0
-        }
-      }
-    }
+    // //Check for Major Diagonal Victory
+    // for(let D=-(this.col_count-this.run_limit); D<=(this.row_count-this.run_limit); D++){
+    //   counter = 0
+    //   for(let r=0; r<this.row_count; r++){
+    //     let c = r-D
+    //     if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
+    //       counter ++
+    //       if(counter == this.run_limit){
+    //         return true
+    //       }
+    //     }
+    //     else{
+    //       counter = 0
+    //     }
+    //   }
+    // }
 
-    //Check for Minor Diagonal Victory
-    for(let d=this.run_limit-1; d<=(this.row_count-1)+(this.col_count-1)-(this.run_limit-1); d++){
-      counter = 0
-      for(let r=0; r<this.row_count; r++){
-        let c = d-r
-        if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
-          counter ++
-          if(counter == this.run_limit){
-            return true
-          }
-        }
-        else{
-          counter = 0
-        }
-      }
-    }
-    //If no victory was found, return false
-    return false
+    // //Check for Minor Diagonal Victory
+    // for(let d=this.run_limit-1; d<=(this.row_count-1)+(this.col_count-1)-(this.run_limit-1); d++){
+    //   counter = 0
+    //   for(let r=0; r<this.row_count; r++){
+    //     let c = d-r
+    //     if(0 <= c && c< this.col_count && this.board_data[r][c] == player.id){
+    //       counter ++
+    //       if(counter == this.run_limit){
+    //         return true
+    //       }
+    //     }
+    //     else{
+    //       counter = 0
+    //     }
+    //   }
+    // }
+    // //If no victory was found, return false
+    // return false
   }
   //-----------------------------------------------------------
 

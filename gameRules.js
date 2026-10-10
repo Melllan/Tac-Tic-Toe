@@ -3,49 +3,121 @@
 //The Board Class will contain a reference to a gameRules object, which will be this Static Class of functions
 //WITHIN STATIC FUNCTIONS ALL VARIABLES MUST BE DEFINED USING LET (or esle)
 //RUN_LENGTH = 4 //This should actually be set by a constructor
-class gameRules{
+class gameRules {
 
     static Blank_ID = 0
-    constructor(){
-        
+    constructor() {
+
 
     }
 
     //Hypothetical method call from Board.js 
-    //this.rules.boardHasWin(this.board_data, this.current_player, this.run_limit)
+    //this.rules.boardHasWin(this.board_data, this.current_player, run_limit)
     //Hypothetical method call from gameAI.js
     //gameRules.boardHasWin(this.board.board_data, this.board.current_player, this.board.run_limit)
     //We are using run_limit as a parameter in our method calls to keep gameRules as static as possible
-    boardHasWin(board_array, player_id, run_limit){
-        return true
+    static boardHasWin(board_array, player_id, run_limit) {
+        var row_count = board_array.length
+        var col_count = board_array[0].length
+        let counter = 0
+        
+        //let player_id = player.id //Does this run faster?
+
+        //Check for Horizontal Victory
+        for (let r = 0; r < row_count; r++) {
+            counter = 0
+            for (let c = 0; c < col_count; c++) {
+                if (board_array[r][c] == player_id) {
+                    counter++
+                    if (counter == run_limit) {
+                        return true
+                    }
+                }
+                else {
+                    counter = 0
+                }
+            }
+        }
+
+        //Check for Vertical Victory
+        for (let c = 0; c < col_count; c++) {
+            counter = 0
+            for (let r = 0; r < row_count; r++) {
+                if (board_array[r][c] == player_id) {
+                    counter++
+                    if (counter == run_limit) {
+                        return true
+                    }
+                }
+                else {
+                    counter = 0
+                }
+            }
+        }
+
+        //Check for Major Diagonal Victory
+        for (let D = -(col_count - run_limit); D <= (row_count - run_limit); D++) {
+            counter = 0
+            for (let r = 0; r < row_count; r++) {
+                let c = r - D
+                if (0 <= c && c < col_count && board_array[r][c] == player_id) {
+                    counter++
+                    if (counter == run_limit) {
+                        return true
+                    }
+                }
+                else {
+                    counter = 0
+                }
+            }
+        }
+
+        //Check for Minor Diagonal Victory
+        for (let d = run_limit - 1; d <= (row_count - 1) + (col_count - 1) - (run_limit - 1); d++) {
+            counter = 0
+            for (let r = 0; r < row_count; r++) {
+                let c = d - r
+                if (0 <= c && c < col_count && board_array[r][c] == player_id) {
+                    counter++
+                    if (counter == run_limit) {
+                        return true
+                    }
+                }
+                else {
+                    counter = 0
+                }
+            }
+        }
+        //If no victory was found, return false
+        return false
     }
 
     //Called from gameAI.js:
     //gameRules.getLegalMoves(this.board.board_data, this.board.Blank_player.id)
-    static getLegalMoves(board_array){
-        return this.getOwnedSquares(board_array,this.Blank_ID)
-        
+    static getLegalMoves(board_array) {
+        return this.getOwnedSquares(board_array, this.Blank_ID)
+
     }
     //Returns a list of all the [r,c] coordinates in the board_array that contain player_id
-    static getOwnedSquares(board_array, player_id){
+    static getOwnedSquares(board_array, player_id) {
         var owned_squares = [] //Use var for defining variables within a function and use let for mostly for loops and if statements.
-        for(let r=0; r<board_array.length;r++){ //For each row...
-            for(let c=0;c<board_array[0].length; c++) {//For each item in the row (designated by column)
-                if(board_array[r][c] == player_id){
-                    owned_squares.push([r,c])
+        for (let r = 0; r < board_array.length; r++) { //For each row...
+            for (let c = 0; c < board_array[0].length; c++) {//For each item in the row (designated by column)
+                if (board_array[r][c] == player_id) {
+                    owned_squares.push([r, c])
                 }
             }
         }
         return owned_squares
     }
 
-    noLegalMoves(board_array){
+    static noLegalMoves(board_array) {
         return this.getLegalMoves(board_array).length() == 0
     }
     //Define how a move is actually made
     //Test this later
-    makeMove(board_array, move, player_id){
-        var [r,c] = move
+    static makeMove(board_array, move, player_id) {
+        var [r, c] = move
         board_array[r][c] = player_id
     }
 }
